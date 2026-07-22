@@ -1,38 +1,3 @@
-#!/usr/bin/env python3
-"""Reproducible numerical experiments for the Wentzell road--field paper.
-
-The program does four things:
-
-1. directly solves the epsilon-scaled Fisher--KPP equation with the Wentzell
-   boundary condition and compares its threshold fronts with the exact
-   Hamilton--Jacobi (HJ) variational front;
-2. computes directional propagation speeds and parameter-response curves;
-3. computes symmetric two-road cone fronts using the rigorous folding law;
-4. explores aligned and counter-flowing road/field drifts.
-
-The default ``paper`` mode generates every figure, CSV table, JSON diagnostic,
-and TeX table used by ``numerical_simulation_replacement.tex``.  All paths are
-resolved relative to this file, so the script may be launched from any working
-directory.
-
-Numerical conventions
----------------------
-The scaled parabolic problem is
-
-    u_t = eps * Delta u - c * u_x + u(1-u)/eps,                  y > 0,
-    a eps u_xx - b u_x + u_y = 0,                               y = 0.
-
-The field drift is removed exactly by the Galilean coordinate z=x-c*t.  The
-reaction is advanced by its exact logistic flow and diffusion by SSP-RK2 with
-centered second differences.  After every stage, the Wentzell row is projected
-by solving a strictly diagonally dominant tridiagonal M-matrix.  The boundary
-tangential derivative is centered whenever the resulting row is an M-matrix
-(as in all paper runs), with a sign-aware upwind fallback outside that regime.
-Under the stated CFL restriction the paper scheme is positivity preserving;
-assertions stop the run if positivity, the upper bound, boundary residual, or
-artificial-boundary margin is violated.
-"""
-
 from __future__ import annotations
 
 import argparse
@@ -124,7 +89,7 @@ def configure_plotting() -> None:
 
 
 # ---------------------------------------------------------------------------
-# Exact Hamilton--Jacobi variational solution
+# Exact Hamilton-Jacobi variational solution
 # ---------------------------------------------------------------------------
 
 
@@ -278,7 +243,7 @@ def vertical_speed_formula(model: Model) -> float:
 
 
 # ---------------------------------------------------------------------------
-# Scaled reaction--diffusion solver
+# Scaled reaction-diffusion solver
 # ---------------------------------------------------------------------------
 
 
